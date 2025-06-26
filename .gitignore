@@ -20,7 +20,6 @@ my_dir/
 # Ignore model files and weights
 *.h5
 *.hdf5
-*.keras
 *.ckpt
 *.pb
 *.pkl
