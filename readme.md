@@ -1,4 +1,3 @@
-```markdown
 # Transfer Learning–Based Classification of Poultry Diseases for Enhanced Health Management
 
 ## Table of Contents
@@ -80,7 +79,7 @@ Classification-of-Poultry-Diseases/
    ```bash
    git clone https://github.com/Durgesh-Vaigandla/Classification-of-Poultry-Diseases.git
    cd Classification-of-Poultry-Diseases
-````
+   ```
 
 2. **Create & activate a virtual environment**
 
