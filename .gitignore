@@ -40,3 +40,5 @@ Thumbs.db
 
 # Ignore VSCode settings (if you use VSCode)
 .vscode/
+
+src/*
