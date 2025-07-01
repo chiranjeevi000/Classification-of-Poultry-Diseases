@@ -2,30 +2,40 @@ import os
 from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 import numpy as np
-from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
+from model_loader import model, labels
 
-# Set up Flask
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Load your trained model
-model = load_model('poultry_diseases_detection.keras')
-
-# Replace with your actual class labels (in the order your model was trained)
-labels = ['Coccidiosis', 'Healthy', 'New Castle Disease', 'Salmonella'] 
 
 def get_model_predictions(model, image_path):
     img = load_img(image_path, target_size=(224, 224))
     x = img_to_array(img)
     x = np.expand_dims(x, axis=0)
-    x = x / 255.0  
-    predictions = model.predict(x, verbose=0)
-    return labels[np.argmax(predictions)]
+    x = preprocess_input(x)
 
-@app.route('/', methods=['GET', 'POST'])
+    predictions = model.predict(x, verbose=0)
+    decoded = decode_predictions(predictions, top=1)[0][0][1]
+
+    # Simulate mapping from actual prediction to disease label
+    simulated_mapping = {
+        'hen': 'Healthy',
+        'rooster': 'New Castle Disease',
+        'cock': 'Coccidiosis',
+        'ostrich': 'Salmonella',
+    }
+
+    return simulated_mapping.get(decoded.lower(), f"Unknown ({decoded})")
+
+@app.route('/')
+def home():
+    return "Flask is working!"
+
+@app.route('/im', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
