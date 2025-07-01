@@ -8,3 +8,4 @@ model = MobileNetV2(weights='imagenet')  # Pretrained model
 labels = ['Coccidiosis', 'Healthy', 'New Castle Disease', 'Salmonella']
 
 print("model loaded.")
+

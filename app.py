@@ -12,6 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+
 def get_model_predictions(model, image_path):
     img = load_img(image_path, target_size=(224, 224))
     x = img_to_array(img)
